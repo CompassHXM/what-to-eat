@@ -1,0 +1,717 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>命运の食堂 🐶⚡</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: #FFF8F0;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 24px 16px 40px;
+    color: #5D4037;
+    overflow-x: hidden;
+  }
+
+  /* Dog mascot SVG */
+  .dog-mascot {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 4px;
+    transition: transform 0.3s;
+  }
+  .dog-mascot.excited { animation: dogJump 0.4s ease infinite; }
+  .dog-mascot.happy { animation: dogWag 0.6s ease infinite; }
+
+  @keyframes dogJump {
+    0%, 100% { transform: translateY(0) rotate(-3deg); }
+    50% { transform: translateY(-12px) rotate(3deg); }
+  }
+  @keyframes dogWag {
+    0%, 100% { transform: rotate(-5deg); }
+    50% { transform: rotate(5deg); }
+  }
+
+  h1 {
+    font-size: 24px;
+    color: #E65100;
+    margin-bottom: 2px;
+    letter-spacing: 2px;
+  }
+
+  .subtitle {
+    font-size: 13px;
+    color: #BCAAA4;
+    margin-bottom: 18px;
+  }
+
+  .subtitle .spark { color: #FFB300; }
+
+  /* People toggle */
+  .people-toggle {
+    display: flex;
+    gap: 0;
+    margin-bottom: 16px;
+    background: #FFF3E0;
+    border-radius: 24px;
+    padding: 3px;
+    border: 2px solid #FFE0B2;
+  }
+
+  .people-btn {
+    padding: 8px 22px;
+    border-radius: 20px;
+    font-size: 14px;
+    border: none;
+    background: transparent;
+    color: #BCAAA4;
+    cursor: pointer;
+    transition: all 0.25s;
+    font-weight: 600;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .people-btn.active {
+    background: white;
+    color: #E65100;
+    box-shadow: 0 2px 8px rgba(230, 81, 0, 0.15);
+  }
+
+  /* Filter chips */
+  .filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: center;
+    margin-bottom: 20px;
+    max-width: 360px;
+  }
+
+  .chip {
+    padding: 6px 13px;
+    border-radius: 16px;
+    font-size: 12px;
+    border: 2px solid #FFE0B2;
+    background: white;
+    color: #8D6E63;
+    cursor: pointer;
+    transition: all 0.2s;
+    user-select: none;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  .chip.active {
+    background: #FF8A65;
+    color: white;
+    border-color: #FF8A65;
+    font-weight: 600;
+    box-shadow: 0 2px 8px rgba(255, 138, 101, 0.3);
+  }
+
+  /* Main card */
+  .slot-card {
+    background: white;
+    border-radius: 24px;
+    padding: 28px 20px 24px;
+    width: 100%;
+    max-width: 330px;
+    text-align: center;
+    border: 3px solid #FFE0B2;
+    margin-bottom: 20px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* Doodle corners */
+  .slot-card::before {
+    content: '✿';
+    position: absolute;
+    top: 8px; left: 12px;
+    font-size: 16px;
+    opacity: 0.3;
+  }
+  .slot-card::after {
+    content: '✿';
+    position: absolute;
+    top: 8px; right: 12px;
+    font-size: 16px;
+    opacity: 0.3;
+  }
+
+  .result-emoji {
+    font-size: 64px;
+    display: block;
+    margin-bottom: 8px;
+    transition: transform 0.3s;
+  }
+
+  .result-name {
+    font-size: 28px;
+    font-weight: 800;
+    color: #4E342E;
+    margin-bottom: 4px;
+    min-height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* 中二 dramatic line */
+  .chuuni-line {
+    font-size: 12px;
+    color: #FF8A65;
+    font-style: italic;
+    margin-bottom: 8px;
+    min-height: 18px;
+    letter-spacing: 1px;
+  }
+
+  .result-tags {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+    min-height: 26px;
+  }
+
+  .tag {
+    font-size: 11px;
+    padding: 3px 10px;
+    border-radius: 10px;
+    background: #FFF3E0;
+    color: #8D6E63;
+  }
+  .tag.price-low { background: #E8F5E9; color: #2E7D32; }
+  .tag.price-mid { background: #FFF3E0; color: #E65100; }
+  .tag.price-high { background: #FCE4EC; color: #C62828; }
+  .tag.share { background: #E3F2FD; color: #1565C0; }
+
+  /* Spinning state */
+  .spinning .result-emoji {
+    animation: slotSpin 0.1s linear infinite;
+  }
+  .spinning .result-name {
+    animation: textFlicker 0.08s linear infinite;
+  }
+  @keyframes slotSpin {
+    0% { transform: translateY(-18px); opacity: 0.3; }
+    50% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(18px); opacity: 0.3; }
+  }
+  @keyframes textFlicker {
+    0%, 100% { opacity: 0.4; }
+    50% { opacity: 1; }
+  }
+
+  /* Landed */
+  .landed .result-emoji {
+    animation: popIn 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+  }
+  @keyframes popIn {
+    0% { transform: scale(0.3) rotate(-10deg); }
+    50% { transform: scale(1.25) rotate(5deg); }
+    70% { transform: scale(0.9) rotate(-2deg); }
+    100% { transform: scale(1) rotate(0); }
+  }
+
+  /* Speech bubble from dog */
+  .dog-speech {
+    position: relative;
+    background: #FFF3E0;
+    border: 2px solid #FFE0B2;
+    border-radius: 16px;
+    padding: 8px 14px;
+    font-size: 13px;
+    color: #8D6E63;
+    margin-bottom: 16px;
+    max-width: 280px;
+    min-height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+  .dog-speech::after {
+    content: '';
+    position: absolute;
+    top: -8px;
+    left: 50%;
+    margin-left: -6px;
+    border-left: 6px solid transparent;
+    border-right: 6px solid transparent;
+    border-bottom: 8px solid #FFF3E0;
+  }
+  .dog-speech::before {
+    content: '';
+    position: absolute;
+    top: -11px;
+    left: 50%;
+    margin-left: -7px;
+    border-left: 7px solid transparent;
+    border-right: 7px solid transparent;
+    border-bottom: 9px solid #FFE0B2;
+  }
+
+  /* Buttons */
+  .spin-btn {
+    width: 100%;
+    max-width: 330px;
+    padding: 14px;
+    font-size: 18px;
+    font-weight: 700;
+    border: 3px solid #FF8A65;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #FF8A65, #FF6E40);
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 4px 15px rgba(255, 110, 64, 0.3);
+    transition: all 0.2s;
+    -webkit-tap-highlight-color: transparent;
+    letter-spacing: 3px;
+  }
+  .spin-btn:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 8px rgba(255, 110, 64, 0.2);
+  }
+  .spin-btn.is-spinning {
+    background: #FFCCBC;
+    border-color: #FFCCBC;
+    color: white;
+    pointer-events: none;
+    box-shadow: none;
+  }
+
+  .reroll {
+    background: white;
+    border: 2px dashed #FFAB91;
+    color: #FF8A65;
+    padding: 9px 18px;
+    border-radius: 12px;
+    font-size: 13px;
+    cursor: pointer;
+    margin-top: 12px;
+    display: none;
+    -webkit-tap-highlight-color: transparent;
+    font-weight: 600;
+  }
+  .reroll:active { background: #FFF3E0; }
+
+  /* History */
+  .history {
+    margin-top: 20px;
+    width: 100%;
+    max-width: 330px;
+  }
+  .history-title {
+    color: #BCAAA4;
+    font-size: 12px;
+    margin-bottom: 8px;
+    text-align: center;
+  }
+  .history-list {
+    display: flex;
+    gap: 6px;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+  .history-item {
+    background: #FFF3E0;
+    border-radius: 10px;
+    padding: 4px 10px;
+    color: #BCAAA4;
+    font-size: 13px;
+    text-decoration: line-through;
+  }
+  .history-item:first-child {
+    text-decoration: none;
+    color: #8D6E63;
+    background: #FFE0B2;
+  }
+
+  /* Paw prints decoration */
+  .paw-deco {
+    position: fixed;
+    opacity: 0.06;
+    font-size: 40px;
+    pointer-events: none;
+    z-index: 0;
+  }
+
+  /* Confetti */
+  .confetti {
+    position: fixed;
+    top: -10px;
+    border-radius: 2px;
+    pointer-events: none;
+    z-index: 999;
+    animation: confettiFall 2s ease-out forwards;
+  }
+  @keyframes confettiFall {
+    0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+    100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+  }
+
+  .footer {
+    margin-top: auto;
+    padding-top: 24px;
+    color: #D7CCC8;
+    font-size: 11px;
+  }
+</style>
+</head>
+<body>
+
+<!-- Paw prints background -->
+<div class="paw-deco" style="top:10%; left:5%; transform:rotate(-20deg);">🐾</div>
+<div class="paw-deco" style="top:30%; right:8%; transform:rotate(15deg);">🐾</div>
+<div class="paw-deco" style="top:55%; left:10%; transform:rotate(-35deg);">🐾</div>
+<div class="paw-deco" style="top:75%; right:12%; transform:rotate(25deg);">🐾</div>
+<div class="paw-deco" style="top:90%; left:20%; transform:rotate(-10deg);">🐾</div>
+
+<!-- Line-drawing dog mascot -->
+<svg class="dog-mascot" id="dogSvg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- body -->
+  <ellipse cx="100" cy="130" rx="50" ry="38" stroke="#8D6E63" stroke-width="3" fill="#FFF8F0"/>
+  <!-- head -->
+  <circle cx="100" cy="75" r="35" stroke="#8D6E63" stroke-width="3" fill="#FFF8F0"/>
+  <!-- ears (floppy!) -->
+  <path d="M70 58 Q55 30 48 55 Q45 70 65 70" stroke="#8D6E63" stroke-width="3" fill="#FFE0B2"/>
+  <path d="M130 58 Q145 30 152 55 Q155 70 135 70" stroke="#8D6E63" stroke-width="3" fill="#FFE0B2"/>
+  <!-- eyes (big cute) -->
+  <circle cx="87" cy="72" r="6" fill="#5D4037"/>
+  <circle cx="113" cy="72" r="6" fill="#5D4037"/>
+  <circle cx="89" cy="70" r="2.5" fill="white"/>
+  <circle cx="115" cy="70" r="2.5" fill="white"/>
+  <!-- nose -->
+  <ellipse cx="100" cy="84" rx="5" ry="4" fill="#8D6E63"/>
+  <!-- mouth -->
+  <path d="M93 89 Q100 96 107 89" stroke="#8D6E63" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <!-- blush -->
+  <circle cx="78" cy="82" r="6" fill="#FFAB91" opacity="0.5"/>
+  <circle cx="122" cy="82" r="6" fill="#FFAB91" opacity="0.5"/>
+  <!-- tail (wagging) -->
+  <path id="dogTail" d="M150 125 Q170 100 165 85" stroke="#8D6E63" stroke-width="3" fill="none" stroke-linecap="round"/>
+  <!-- front legs -->
+  <line x1="80" y1="162" x2="78" y2="185" stroke="#8D6E63" stroke-width="3" stroke-linecap="round"/>
+  <line x1="120" y1="162" x2="122" y2="185" stroke="#8D6E63" stroke-width="3" stroke-linecap="round"/>
+  <!-- tongue (hidden by default, shown when happy) -->
+  <path id="dogTongue" d="M98 92 Q100 105 102 92" stroke="#FF8A65" stroke-width="2" fill="#FFAB91" opacity="0" stroke-linecap="round"/>
+</svg>
+
+<h1>命运の食堂</h1>
+<p class="subtitle"><span class="spark">⚡</span> 由神秘力量为你选择今日美食 <span class="spark">⚡</span></p>
+
+<!-- 1人 / 2人 toggle -->
+<div class="people-toggle">
+  <button class="people-btn active" data-people="1" onclick="setPeople(1)">🐶 一个人</button>
+  <button class="people-btn" data-people="2" onclick="setPeople(2)">🐶🐶 两个人</button>
+</div>
+
+<div class="filters" id="filters">
+  <div class="chip active" data-filter="all">全部</div>
+  <div class="chip" data-filter="中餐">🥢 中餐</div>
+  <div class="chip" data-filter="日料">🍣 日料</div>
+  <div class="chip" data-filter="西餐">🍝 西餐</div>
+  <div class="chip" data-filter="小吃">🥟 小吃</div>
+  <div class="chip" data-filter="饮品">🧋 饮品</div>
+  <div class="chip" data-filter="cheap">💰 省钱</div>
+  <div class="chip" data-filter="treat">✨ 犒劳</div>
+</div>
+
+<div class="dog-speech" id="dogSpeech">汪！点下面的按钮，本汪为你占卜今日美食！</div>
+
+<div class="slot-card" id="slotCard">
+  <span class="result-emoji" id="emoji">🍽️</span>
+  <div class="result-name" id="name">等待命运揭晓...</div>
+  <div class="chuuni-line" id="chuuniLine"></div>
+  <div class="result-tags" id="tags"></div>
+</div>
+
+<button class="spin-btn" id="spinBtn" onclick="spin()">⚡ 命运转转转 ⚡</button>
+<button class="reroll" id="rerollBtn" onclick="spin()">🐾 不要！换一个！</button>
+
+<div class="history" id="historySection" style="display:none">
+  <div class="history-title">被命运抛弃的选项 💨</div>
+  <div class="history-list" id="historyList"></div>
+</div>
+
+<div class="footer">🐾 Nova × 线条小狗 联合出品 🐾</div>
+
+<script>
+const foods = [
+  // 中餐 - solo
+  { name: "黄焖鸡米饭", emoji: "🍗", cat: "中餐", price: "low", tags: ["下饭","经典"], solo: true, duo: true },
+  { name: "麻辣香锅", emoji: "🌶️", cat: "中餐", price: "mid", tags: ["过瘾","辣"], solo: true, duo: true },
+  { name: "盖码饭", emoji: "🍚", cat: "中餐", price: "low", tags: ["快手","实惠"], solo: true, duo: false },
+  { name: "酸菜鱼", emoji: "🐟", cat: "中餐", price: "mid", tags: ["酸爽","下饭"], solo: true, duo: true },
+  { name: "兰州拉面", emoji: "🍜", cat: "中餐", price: "low", tags: ["经典","汤面"], solo: true, duo: true },
+  { name: "红烧牛肉面", emoji: "🍜", cat: "中餐", price: "low", tags: ["浓郁","满足"], solo: true, duo: false },
+  { name: "螺蛳粉", emoji: "🥢", cat: "中餐", price: "low", tags: ["上瘾","臭香"], solo: true, duo: true },
+  { name: "烤鱼", emoji: "🐟", cat: "中餐", price: "mid", tags: ["分享","香辣"], solo: false, duo: true },
+  { name: "冒菜", emoji: "🥬", cat: "中餐", price: "low", tags: ["蔬菜多","辣"], solo: true, duo: false },
+  { name: "猪脚饭", emoji: "🍖", cat: "中餐", price: "low", tags: ["胶原蛋白","满足"], solo: true, duo: false },
+  { name: "米粉", emoji: "🍜", cat: "中餐", price: "low", tags: ["家乡味","暖"], solo: true, duo: true },
+  { name: "火锅", emoji: "🫕", cat: "中餐", price: "high", tags: ["快乐","过瘾"], solo: false, duo: true },
+  { name: "煲仔饭", emoji: "🍚", cat: "中餐", price: "mid", tags: ["锅巴","香"], solo: true, duo: false },
+  { name: "水煮肉片", emoji: "🌶️", cat: "中餐", price: "mid", tags: ["辣","下饭"], solo: true, duo: true },
+  { name: "干锅", emoji: "🍳", cat: "中餐", price: "mid", tags: ["香辣","分享"], solo: false, duo: true },
+  { name: "椰子鸡", emoji: "🥥", cat: "中餐", price: "high", tags: ["清甜","养生"], solo: false, duo: true },
+  { name: "烧烤", emoji: "🍢", cat: "中餐", price: "mid", tags: ["夜宵","快乐"], solo: true, duo: true },
+  { name: "串串香", emoji: "🍡", cat: "中餐", price: "mid", tags: ["自选","辣"], solo: true, duo: true },
+
+  // 日料
+  { name: "寿司", emoji: "🍣", cat: "日料", price: "mid", tags: ["清爽","精致"], solo: true, duo: true },
+  { name: "日式拉面", emoji: "🍜", cat: "日料", price: "mid", tags: ["浓汤","满足"], solo: true, duo: true },
+  { name: "咖喱饭", emoji: "🍛", cat: "日料", price: "low", tags: ["温暖","家常"], solo: true, duo: false },
+  { name: "鳗鱼饭", emoji: "🐟", cat: "日料", price: "high", tags: ["奢华","满足"], solo: true, duo: true },
+  { name: "天妇罗定食", emoji: "🍤", cat: "日料", price: "mid", tags: ["酥脆","经典"], solo: true, duo: true },
+  { name: "牛丼", emoji: "🥩", cat: "日料", price: "low", tags: ["快手","实惠"], solo: true, duo: false },
+  { name: "居酒屋", emoji: "🍶", cat: "日料", price: "high", tags: ["小酌","氛围"], solo: false, duo: true },
+
+  // 西餐
+  { name: "意面", emoji: "🍝", cat: "西餐", price: "mid", tags: ["百搭","经典"], solo: true, duo: true },
+  { name: "披萨", emoji: "🍕", cat: "西餐", price: "mid", tags: ["分享","快乐"], solo: true, duo: true },
+  { name: "汉堡", emoji: "🍔", cat: "西餐", price: "mid", tags: ["痛快","肉"], solo: true, duo: true },
+  { name: "牛排", emoji: "🥩", cat: "西餐", price: "high", tags: ["犒劳","仪式感"], solo: true, duo: true },
+  { name: "沙拉", emoji: "🥗", cat: "西餐", price: "mid", tags: ["健康","清爽"], solo: true, duo: true },
+  { name: "三明治", emoji: "🥪", cat: "西餐", price: "low", tags: ["简单","快手"], solo: true, duo: false },
+  { name: "Brunch", emoji: "🥞", cat: "西餐", price: "mid", tags: ["周末","惬意"], solo: true, duo: true },
+
+  // 小吃
+  { name: "煎饼果子", emoji: "🥞", cat: "小吃", price: "low", tags: ["经典","快手"], solo: true, duo: false },
+  { name: "肉夹馍", emoji: "🥙", cat: "小吃", price: "low", tags: ["实在","香"], solo: true, duo: false },
+  { name: "生煎包", emoji: "🥟", cat: "小吃", price: "low", tags: ["酥底","多汁"], solo: true, duo: true },
+  { name: "炸鸡", emoji: "🍗", cat: "小吃", price: "mid", tags: ["罪恶","快乐"], solo: true, duo: true },
+  { name: "麻辣烫", emoji: "🍲", cat: "小吃", price: "low", tags: ["自选","暖"], solo: true, duo: true },
+  { name: "臭豆腐", emoji: "🧈", cat: "小吃", price: "low", tags: ["长沙","臭香"], solo: true, duo: true },
+  { name: "鸡蛋灌饼", emoji: "🥚", cat: "小吃", price: "low", tags: ["早餐","简单"], solo: true, duo: false },
+  { name: "凉皮", emoji: "🥢", cat: "小吃", price: "low", tags: ["爽滑","夏天"], solo: true, duo: false },
+
+  // 饮品
+  { name: "奶茶", emoji: "🧋", cat: "饮品", price: "low", tags: ["快乐水","续命"], solo: true, duo: true },
+  { name: "咖啡", emoji: "☕", cat: "饮品", price: "low", tags: ["提神","日常"], solo: true, duo: true },
+  { name: "柠檬茶", emoji: "🍋", cat: "饮品", price: "low", tags: ["解腻","清爽"], solo: true, duo: true },
+  { name: "酸奶", emoji: "🥛", cat: "饮品", price: "low", tags: ["健康","饭后"], solo: true, duo: true },
+  { name: "茶颜悦色", emoji: "🍵", cat: "饮品", price: "low", tags: ["长沙","必喝"], solo: true, duo: true },
+];
+
+// 中二台词
+const chuuniLines = [
+  "这就是...命运的指引！✨",
+  "封印解除！今日の美食现身！⚡",
+  "宇宙の意志已经做出了选择！🌟",
+  "接受这份来自异世界的馈赠吧！",
+  "命运の齿轮开始转动了...！",
+  "汝之今日粮食，已由星辰决定！⭐",
+  "这是只属于你的SSR美食！✨",
+  "黑暗料理之神说：就是它了！",
+  "千年の封印被打破...美食觉醒！",
+  "这不是巧合，是必然！🔮",
+];
+
+// 小狗的话
+const dogSpeechIdle = [
+  "汪！点下面的按钮，本汪为你占卜今日美食！",
+  "汪汪！快选一个，本汪已经饿了！🦴",
+  "本汪的第六感在颤抖...快按按钮！",
+];
+
+const dogSpeechResult = [
+  "汪！就是这个！本汪的鼻子从不出错！🐽",
+  "汪汪！命运已定！快去吃！🐾",
+  "本汪认证✅ 这个超好吃的！",
+  "汪！本汪替你尝过了（并没有）很好吃！",
+  "汪汪汪！这个选择，本汪给满分💯",
+  "本汪的尾巴已经摇起来了！就它了！",
+  "汪！今天的幸运美食get✨",
+  "这个味道...本汪在梦里闻到过！🌙",
+];
+
+const dogSpeechReroll = [
+  "汪？不满意？让本汪再算一卦...🔮",
+  "嗯...本汪理解，口味这东西嘛！再来！",
+  "汪！挑食不是病，本汪也挑！🐾",
+  "好吧好吧，命运可以重来一次！",
+];
+
+let history = [];
+let currentFilter = "all";
+let peopleCount = 1;
+let isSpinning = false;
+let spinCount = 0;
+
+function setPeople(n) {
+  peopleCount = n;
+  document.querySelectorAll('.people-btn').forEach(b => {
+    b.classList.toggle('active', parseInt(b.dataset.people) === n);
+  });
+  // Update dog speech
+  if (n === 2) {
+    setDogSpeech("汪！两个人！是约会吗？🐾💕");
+  } else {
+    setDogSpeech("汪！一个人也要好好吃饭哦！🐾");
+  }
+}
+
+function setDogSpeech(text) {
+  document.getElementById('dogSpeech').textContent = text;
+}
+
+function setDogMood(mood) {
+  const dog = document.getElementById('dogSvg');
+  const tongue = document.getElementById('dogTongue');
+  dog.className = 'dog-mascot ' + mood;
+  tongue.setAttribute('opacity', mood === 'happy' ? '1' : '0');
+  if (mood === '') {
+    setTimeout(() => { dog.className = 'dog-mascot'; }, 600);
+  }
+}
+
+// Filter logic
+document.getElementById('filters').addEventListener('click', e => {
+  const chip = e.target.closest('.chip');
+  if (!chip) return;
+  document.querySelectorAll('.chip').forEach(c => c.classList.remove('active'));
+  chip.classList.add('active');
+  currentFilter = chip.dataset.filter;
+});
+
+function getFiltered() {
+  let list = foods;
+  // Filter by people
+  if (peopleCount === 1) list = list.filter(f => f.solo);
+  else list = list.filter(f => f.duo);
+
+  // Filter by category
+  if (currentFilter === "cheap") list = list.filter(f => f.price === "low");
+  else if (currentFilter === "treat") list = list.filter(f => f.price === "high" || f.price === "mid");
+  else if (currentFilter !== "all") list = list.filter(f => f.cat === currentFilter);
+
+  // Avoid repeats
+  const histNames = history.map(h => h.name);
+  const fresh = list.filter(f => !histNames.includes(f.name));
+  return fresh.length > 0 ? fresh : list;
+}
+
+function spin() {
+  if (isSpinning) return;
+  isSpinning = true;
+  spinCount++;
+
+  const btn = document.getElementById('spinBtn');
+  const card = document.getElementById('slotCard');
+  const reroll = document.getElementById('rerollBtn');
+  
+  btn.classList.add('is-spinning');
+  btn.textContent = '⚡ 命运转动中... ⚡';
+  reroll.style.display = 'none';
+  card.className = 'slot-card spinning';
+  document.getElementById('chuuniLine').textContent = '';
+  
+  setDogMood('excited');
+  if (spinCount > 1) {
+    setDogSpeech(randomPick(dogSpeechReroll));
+  } else {
+    setDogSpeech("汪汪汪！命运の齿轮转动中...！🔮");
+  }
+
+  const pool = getFiltered();
+  let ticks = 0;
+  const totalTicks = 18 + Math.floor(Math.random() * 10);
+  
+  const interval = setInterval(() => {
+    const rand = pool[Math.floor(Math.random() * pool.length)];
+    document.getElementById('emoji').textContent = rand.emoji;
+    document.getElementById('name').textContent = rand.name;
+    document.getElementById('tags').innerHTML = '';
+    ticks++;
+    if (ticks >= totalTicks) {
+      clearInterval(interval);
+      const pick = pool[Math.floor(Math.random() * pool.length)];
+      showResult(pick);
+    }
+  }, 70 + ticks * 5);
+}
+
+function showResult(pick) {
+  const card = document.getElementById('slotCard');
+  const btn = document.getElementById('spinBtn');
+  const reroll = document.getElementById('rerollBtn');
+
+  card.className = 'slot-card landed';
+  document.getElementById('emoji').textContent = pick.emoji;
+  document.getElementById('name').textContent = pick.name;
+  document.getElementById('chuuniLine').textContent = randomPick(chuuniLines);
+
+  const priceMap = { 
+    low: ["💰 实惠", "price-low"], 
+    mid: ["💰💰 适中", "price-mid"], 
+    high: ["💰💰💰 奢华", "price-high"] 
+  };
+  const [priceLabel, priceClass] = priceMap[pick.price];
+  
+  let tagsHTML = `<span class="tag ${priceClass}">${priceLabel}</span>`;
+  if (peopleCount === 2 && pick.duo) {
+    tagsHTML += `<span class="tag share">👫 适合两人</span>`;
+  }
+  pick.tags.forEach(t => { tagsHTML += `<span class="tag">${t}</span>`; });
+  document.getElementById('tags').innerHTML = tagsHTML;
+
+  // Dog happy!
+  setDogMood('happy');
+  setDogSpeech(randomPick(dogSpeechResult));
+  setTimeout(() => setDogMood(''), 2000);
+
+  // Confetti!
+  launchConfetti();
+
+  // History
+  history.unshift(pick);
+  if (history.length > 6) history.pop();
+  renderHistory();
+
+  btn.classList.remove('is-spinning');
+  btn.textContent = '⚡ 再来一次命运转转 ⚡';
+  reroll.style.display = 'inline-block';
+  isSpinning = false;
+}
+
+function renderHistory() {
+  const section = document.getElementById('historySection');
+  const list = document.getElementById('historyList');
+  if (history.length < 2) { section.style.display = 'none'; return; }
+  section.style.display = 'block';
+  list.innerHTML = history.map(h => 
+    `<div class="history-item">${h.emoji} ${h.name}</div>`
+  ).join('');
+}
+
+function randomPick(arr) {
+  return arr[Math.floor(Math.random() * arr.length)];
+}
+
+function launchConfetti() {
+  const colors = ['#FF8A65','#FFB74D','#FFD54F','#AED581','#4FC3F7','#CE93D8','#F48FB1'];
+  for (let i = 0; i < 25; i++) {
+    const c = document.createElement('div');
+    c.className = 'confetti';
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.background = colors[Math.floor(Math.random() * colors.length)];
+    c.style.animationDelay = Math.random() * 0.5 + 's';
+    c.style.animationDuration = (1.5 + Math.random()) + 's';
+    c.style.width = (6 + Math.random() * 8) + 'px';
+    c.style.height = (6 + Math.random() * 8) + 'px';
+    c.style.borderRadius = Math.random() > 0.5 ? '50%' : '2px';
+    document.body.appendChild(c);
+    setTimeout(() => c.remove(), 2500);
+  }
+}
+</script>
+</body>
+</html>
