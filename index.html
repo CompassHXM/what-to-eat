@@ -419,7 +419,6 @@
   <div class="chip" data-filter="日料">🍣 日料</div>
   <div class="chip" data-filter="西餐">🍝 西餐</div>
   <div class="chip" data-filter="小吃">🥟 小吃</div>
-  <div class="chip" data-filter="饮品">🧋 饮品</div>
   <div class="chip" data-filter="cheap">💰 省钱</div>
   <div class="chip" data-filter="treat">✨ 犒劳</div>
 </div>
@@ -483,22 +482,11 @@ const foods = [
   { name: "三明治", emoji: "🥪", cat: "西餐", price: "low", tags: ["简单","快手"], solo: true, duo: false },
   { name: "Brunch", emoji: "🥞", cat: "西餐", price: "mid", tags: ["周末","惬意"], solo: true, duo: true },
 
-  // 小吃
-  { name: "煎饼果子", emoji: "🥞", cat: "小吃", price: "low", tags: ["经典","快手"], solo: true, duo: false },
-  { name: "肉夹馍", emoji: "🥙", cat: "小吃", price: "low", tags: ["实在","香"], solo: true, duo: false },
-  { name: "生煎包", emoji: "🥟", cat: "小吃", price: "low", tags: ["酥底","多汁"], solo: true, duo: true },
-  { name: "炸鸡", emoji: "🍗", cat: "小吃", price: "mid", tags: ["罪恶","快乐"], solo: true, duo: true },
+  // 小吃（能当正餐的）
   { name: "麻辣烫", emoji: "🍲", cat: "小吃", price: "low", tags: ["自选","暖"], solo: true, duo: true },
-  { name: "臭豆腐", emoji: "🧈", cat: "小吃", price: "low", tags: ["长沙","臭香"], solo: true, duo: true },
-  { name: "鸡蛋灌饼", emoji: "🥚", cat: "小吃", price: "low", tags: ["早餐","简单"], solo: true, duo: false },
-  { name: "凉皮", emoji: "🥢", cat: "小吃", price: "low", tags: ["爽滑","夏天"], solo: true, duo: false },
-
-  // 饮品
-  { name: "奶茶", emoji: "🧋", cat: "饮品", price: "low", tags: ["快乐水","续命"], solo: true, duo: true },
-  { name: "咖啡", emoji: "☕", cat: "饮品", price: "low", tags: ["提神","日常"], solo: true, duo: true },
-  { name: "柠檬茶", emoji: "🍋", cat: "饮品", price: "low", tags: ["解腻","清爽"], solo: true, duo: true },
-  { name: "酸奶", emoji: "🥛", cat: "饮品", price: "low", tags: ["健康","饭后"], solo: true, duo: true },
-  { name: "茶颜悦色", emoji: "🍵", cat: "饮品", price: "low", tags: ["长沙","必喝"], solo: true, duo: true },
+  { name: "炸鸡套餐", emoji: "🍗", cat: "小吃", price: "mid", tags: ["罪恶","快乐"], solo: true, duo: true },
+  { name: "生煎包", emoji: "🥟", cat: "小吃", price: "low", tags: ["酥底","多汁"], solo: true, duo: true },
+  { name: "肉夹馍+凉皮", emoji: "🥙", cat: "小吃", price: "low", tags: ["搭配","实在"], solo: true, duo: false },
 ];
 
 // 中二台词
