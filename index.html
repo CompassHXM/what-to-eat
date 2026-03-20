@@ -375,72 +375,77 @@
 <div class="paw-deco" style="top:90%; left:20%; transform:rotate(-10deg);">🐾</div>
 
 <!-- 线条小狗 mascot - 金毛 + 马尔济斯一对 -->
-<svg class="dog-mascot" id="dogSvg" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+<svg class="dog-mascot" id="dogSvg" viewBox="0 0 320 170" fill="none" xmlns="http://www.w3.org/2000/svg">
   <!-- === 小金毛（左） === -->
-  <g transform="translate(40, 10)">
-    <!-- 身体 -->
-    <path d="M35 70 Q35 30 60 22 Q85 30 85 70 Q85 120 60 125 Q35 120 35 70Z" stroke="#3E2723" stroke-width="4" fill="#F5DEB3" stroke-linejoin="round"/>
-    <!-- 左立耳 -->
-    <path d="M42 35 Q38 12 48 20 Q52 25 50 35" stroke="#3E2723" stroke-width="3.5" fill="#E8C889" stroke-linejoin="round"/>
-    <!-- 右立耳 -->
-    <path d="M78 35 Q82 12 72 20 Q68 25 70 35" stroke="#3E2723" stroke-width="3.5" fill="#E8C889" stroke-linejoin="round"/>
+  <g transform="translate(30, 5)">
+    <!-- 身体（超圆blob，像个土豆） -->
+    <ellipse cx="60" cy="82" rx="38" ry="52" stroke="#3E2723" stroke-width="4.5" fill="#F5DEB3"/>
+    <!-- 左耳（小圆耳贴头顶）-->
+    <ellipse cx="40" cy="30" rx="10" ry="13" stroke="#3E2723" stroke-width="4" fill="#EDCC7B" transform="rotate(-15, 40, 30)"/>
+    <!-- 右耳 -->
+    <ellipse cx="80" cy="30" rx="10" ry="13" stroke="#3E2723" stroke-width="4" fill="#EDCC7B" transform="rotate(15, 80, 30)"/>
     <!-- 粉色项圈 -->
-    <path d="M40 78 Q60 86 80 78" stroke="#FF8A80" stroke-width="4" fill="none" stroke-linecap="round"/>
-    <!-- 眼睛 -->
-    <circle cx="52" cy="55" r="3" fill="#3E2723"/>
-    <circle cx="68" cy="55" r="3" fill="#3E2723"/>
-    <!-- 鼻子 -->
-    <path d="M57 64 L60 68 L63 64Z" fill="#3E2723"/>
-    <!-- 嘴 -->
-    <path d="M54 68 Q60 76 66 68" stroke="#3E2723" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <ellipse cx="60" cy="95" rx="30" ry="5" stroke="none" fill="#FF8A80"/>
+    <path d="M32 93 Q60 102 88 93" stroke="#FF8A80" stroke-width="5.5" fill="none" stroke-linecap="round"/>
+    <!-- 眼睛（小豆子）-->
+    <circle cx="48" cy="68" r="3.5" fill="#3E2723"/>
+    <circle cx="72" cy="68" r="3.5" fill="#3E2723"/>
+    <!-- 鼻子（小三角）-->
+    <path d="M56 78 L60 83 L64 78Z" fill="#3E2723"/>
+    <!-- 嘴（大大的开心嘴）-->
+    <path d="M48 83 Q60 96 72 83" stroke="#3E2723" stroke-width="2.5" fill="none" stroke-linecap="round"/>
     <!-- 舌头 -->
-    <path d="M58 72 Q60 78 62 72" fill="#FF8A80"/>
+    <ellipse cx="60" cy="90" rx="5" ry="4" fill="#FF8A80"/>
     <!-- 腮红 -->
-    <circle cx="44" cy="62" r="4.5" fill="#FFAB91" opacity="0.3"/>
-    <circle cx="76" cy="62" r="4.5" fill="#FFAB91" opacity="0.3"/>
-    <!-- 短手 -->
-    <path d="M38 90 Q28 95 30 100" stroke="#3E2723" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-    <path d="M82 90 Q92 95 90 100" stroke="#3E2723" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-    <!-- 短脚 -->
-    <line x1="50" y1="122" x2="48" y2="135" stroke="#3E2723" stroke-width="3.5" stroke-linecap="round"/>
-    <line x1="70" y1="122" x2="72" y2="135" stroke="#3E2723" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="38" cy="76" r="5.5" fill="#FFAB91" opacity="0.35"/>
+    <circle cx="82" cy="76" r="5.5" fill="#FFAB91" opacity="0.35"/>
+    <!-- 左手（短短的）-->
+    <path d="M28 100 Q18 108 22 116" stroke="#3E2723" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- 右手 -->
+    <path d="M92 100 Q102 108 98 116" stroke="#3E2723" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- 脚（短粗）-->
+    <line x1="48" y1="130" x2="46" y2="145" stroke="#3E2723" stroke-width="5" stroke-linecap="round"/>
+    <line x1="72" y1="130" x2="74" y2="145" stroke="#3E2723" stroke-width="5" stroke-linecap="round"/>
     <!-- 尾巴 -->
-    <path d="M85 105 Q96 98 94 88" stroke="#3E2723" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <path d="M95 108 Q110 98 106 85" stroke="#3E2723" stroke-width="4" fill="none" stroke-linecap="round"/>
   </g>
 
   <!-- === 小白狗/马尔济斯（右） === -->
-  <g transform="translate(170, 15)">
-    <!-- 身体（毛茸茸波浪边缘）-->
-    <path d="M35 68 Q32 50 38 35 Q42 25 50 22 Q58 18 65 22 Q75 28 78 40 Q82 50 80 68 Q82 80 80 90 Q78 105 72 115 Q65 122 58 125 Q50 122 44 115 Q38 105 36 90 Q34 80 35 68Z" stroke="#3E2723" stroke-width="4" fill="white" stroke-linejoin="round"/>
-    <!-- 毛茸茸装饰（身体边缘小波浪）-->
-    <path d="M36 55 Q32 52 35 48" stroke="#3E2723" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-    <path d="M80 55 Q84 52 81 48" stroke="#3E2723" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-    <path d="M36 85 Q31 83 34 79" stroke="#3E2723" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-    <path d="M80 85 Q85 83 82 79" stroke="#3E2723" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-    <!-- 左立耳（圆润）-->
-    <path d="M44 32 Q40 10 50 18 Q53 22 51 32" stroke="#3E2723" stroke-width="3.5" fill="white" stroke-linejoin="round"/>
-    <!-- 右立耳 -->
-    <path d="M72 32 Q76 10 66 18 Q63 22 65 32" stroke="#3E2723" stroke-width="3.5" fill="white" stroke-linejoin="round"/>
+  <g transform="translate(175, 10)">
+    <!-- 身体（毛茸茸，用波浪path代替椭圆） -->
+    <path d="M60 30 Q78 25 90 40 Q100 55 98 75 Q100 95 90 110 Q80 125 60 128 Q40 125 30 110 Q20 95 22 75 Q20 55 30 40 Q42 25 60 30Z" stroke="#3E2723" stroke-width="4.5" fill="white" stroke-linejoin="round"/>
+    <!-- 毛茸茸效果（外轮廓小凸起）-->
+    <circle cx="22" cy="60" r="4" fill="white" stroke="#3E2723" stroke-width="2"/>
+    <circle cx="20" cy="80" r="3.5" fill="white" stroke="#3E2723" stroke-width="2"/>
+    <circle cx="98" cy="60" r="4" fill="white" stroke="#3E2723" stroke-width="2"/>
+    <circle cx="100" cy="80" r="3.5" fill="white" stroke="#3E2723" stroke-width="2"/>
+    <circle cx="25" cy="105" r="3" fill="white" stroke="#3E2723" stroke-width="2"/>
+    <circle cx="95" cy="105" r="3" fill="white" stroke="#3E2723" stroke-width="2"/>
+    <!-- 左耳（圆润小耳）-->
+    <ellipse cx="40" cy="25" rx="9" ry="12" stroke="#3E2723" stroke-width="4" fill="white" transform="rotate(-10, 40, 25)"/>
+    <!-- 右耳 -->
+    <ellipse cx="80" cy="25" rx="9" ry="12" stroke="#3E2723" stroke-width="4" fill="white" transform="rotate(10, 80, 25)"/>
     <!-- 眼睛 -->
-    <circle cx="50" cy="50" r="3" fill="#3E2723"/>
-    <circle cx="66" cy="50" r="3" fill="#3E2723"/>
+    <circle cx="48" cy="62" r="3.5" fill="#3E2723"/>
+    <circle cx="72" cy="62" r="3.5" fill="#3E2723"/>
     <!-- 鼻子 -->
-    <path d="M55 58 L58 62 L61 58Z" fill="#3E2723"/>
+    <path d="M56 72 L60 77 L64 72Z" fill="#3E2723"/>
     <!-- 嘴 -->
-    <path d="M52 62 Q58 70 64 62" stroke="#3E2723" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <path d="M48 77 Q60 90 72 77" stroke="#3E2723" stroke-width="2.5" fill="none" stroke-linecap="round"/>
     <!-- 舌头 -->
-    <path id="dogTongue" d="M56 66 Q58 72 60 66" fill="#FF8A80" opacity="1"/>
+    <ellipse id="dogTongue" cx="60" cy="84" rx="5" ry="4" fill="#FF8A80" opacity="1"/>
     <!-- 腮红 -->
-    <circle cx="42" cy="56" r="4.5" fill="#FFAB91" opacity="0.3"/>
-    <circle cx="74" cy="56" r="4.5" fill="#FFAB91" opacity="0.3"/>
-    <!-- 短手 -->
-    <path d="M38 80 Q28 85 30 90" stroke="#3E2723" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-    <path d="M78 80 Q88 85 86 90" stroke="#3E2723" stroke-width="3.5" fill="none" stroke-linecap="round"/>
-    <!-- 短脚 -->
-    <line x1="48" y1="120" x2="46" y2="132" stroke="#3E2723" stroke-width="3.5" stroke-linecap="round"/>
-    <line x1="68" y1="120" x2="70" y2="132" stroke="#3E2723" stroke-width="3.5" stroke-linecap="round"/>
+    <circle cx="38" cy="70" r="5.5" fill="#FFAB91" opacity="0.35"/>
+    <circle cx="82" cy="70" r="5.5" fill="#FFAB91" opacity="0.35"/>
+    <!-- 左手 -->
+    <path d="M26 95 Q14 103 18 110" stroke="#3E2723" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- 右手 -->
+    <path d="M94 95 Q106 103 102 110" stroke="#3E2723" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- 脚 -->
+    <line x1="48" y1="124" x2="46" y2="140" stroke="#3E2723" stroke-width="5" stroke-linecap="round"/>
+    <line x1="72" y1="124" x2="74" y2="140" stroke="#3E2723" stroke-width="5" stroke-linecap="round"/>
     <!-- 尾巴 -->
-    <path id="dogTail" d="M80 100 Q92 94 90 84" stroke="#3E2723" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <path id="dogTail" d="M98 100 Q112 92 108 80" stroke="#3E2723" stroke-width="4" fill="none" stroke-linecap="round"/>
   </g>
 </svg>
 
