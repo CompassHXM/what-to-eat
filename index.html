@@ -21,7 +21,7 @@
 
   /* Dog mascot SVG */
   .dog-mascot {
-    width: 80px;
+    width: 130px;
     height: 80px;
     margin-bottom: 4px;
     transition: transform 0.3s;
@@ -374,37 +374,74 @@
 <div class="paw-deco" style="top:75%; right:12%; transform:rotate(25deg);">🐾</div>
 <div class="paw-deco" style="top:90%; left:20%; transform:rotate(-10deg);">🐾</div>
 
-<!-- 线条小狗 mascot (MALTESE风) -->
-<svg class="dog-mascot" id="dogSvg" viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <!-- 身体（圆滚滚豆子，头身一体）-->
-  <path d="M60 110 Q60 65 100 55 Q140 65 140 110 Q140 170 100 175 Q60 170 60 110Z" stroke="#3E2723" stroke-width="4" fill="#F5DEB3" stroke-linejoin="round"/>
-  <!-- 左垂耳 -->
-  <path d="M72 72 Q58 62 55 78 Q53 90 66 86" stroke="#3E2723" stroke-width="4" fill="#E8C889" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- 右垂耳 -->
-  <path d="M128 72 Q142 62 145 78 Q147 90 134 86" stroke="#3E2723" stroke-width="4" fill="#E8C889" stroke-linecap="round" stroke-linejoin="round"/>
-  <!-- 粉色项圈 -->
-  <path d="M68 115 Q100 125 132 115" stroke="#FF8A80" stroke-width="5" fill="none" stroke-linecap="round"/>
-  <!-- 眼睛（小圆豆）-->
-  <circle cx="86" cy="92" r="4" fill="#3E2723"/>
-  <circle cx="114" cy="92" r="4" fill="#3E2723"/>
-  <!-- 鼻子（倒三角）-->
-  <path d="M96 103 L100 108 L104 103Z" fill="#3E2723"/>
-  <!-- 嘴（开心张嘴）-->
-  <path d="M92 108 Q100 118 108 108" stroke="#3E2723" stroke-width="2.5" fill="none" stroke-linecap="round"/>
-  <!-- 舌头（常显）-->
-  <path id="dogTongue" d="M97 112 Q100 120 103 112" fill="#FF8A80" opacity="1"/>
-  <!-- 腮红 -->
-  <circle cx="74" cy="100" r="6" fill="#FFAB91" opacity="0.35"/>
-  <circle cx="126" cy="100" r="6" fill="#FFAB91" opacity="0.35"/>
-  <!-- 短手（左）-->
-  <path d="M65 130 Q52 135 55 142" stroke="#3E2723" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <!-- 短手（右）-->
-  <path d="M135 130 Q148 135 145 142" stroke="#3E2723" stroke-width="4" fill="none" stroke-linecap="round"/>
-  <!-- 短脚 -->
-  <line x1="82" y1="172" x2="80" y2="188" stroke="#3E2723" stroke-width="4" stroke-linecap="round"/>
-  <line x1="118" y1="172" x2="120" y2="188" stroke="#3E2723" stroke-width="4" stroke-linecap="round"/>
-  <!-- 尾巴（小卷尾）-->
-  <path id="dogTail" d="M140 150 Q155 142 152 130" stroke="#3E2723" stroke-width="4" fill="none" stroke-linecap="round"/>
+<!-- 线条小狗 mascot - 金毛 + 马尔济斯一对 -->
+<svg class="dog-mascot" id="dogSvg" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <!-- === 小金毛（左） === -->
+  <g transform="translate(40, 10)">
+    <!-- 身体 -->
+    <path d="M35 70 Q35 30 60 22 Q85 30 85 70 Q85 120 60 125 Q35 120 35 70Z" stroke="#3E2723" stroke-width="4" fill="#F5DEB3" stroke-linejoin="round"/>
+    <!-- 左立耳 -->
+    <path d="M42 35 Q38 12 48 20 Q52 25 50 35" stroke="#3E2723" stroke-width="3.5" fill="#E8C889" stroke-linejoin="round"/>
+    <!-- 右立耳 -->
+    <path d="M78 35 Q82 12 72 20 Q68 25 70 35" stroke="#3E2723" stroke-width="3.5" fill="#E8C889" stroke-linejoin="round"/>
+    <!-- 粉色项圈 -->
+    <path d="M40 78 Q60 86 80 78" stroke="#FF8A80" stroke-width="4" fill="none" stroke-linecap="round"/>
+    <!-- 眼睛 -->
+    <circle cx="52" cy="55" r="3" fill="#3E2723"/>
+    <circle cx="68" cy="55" r="3" fill="#3E2723"/>
+    <!-- 鼻子 -->
+    <path d="M57 64 L60 68 L63 64Z" fill="#3E2723"/>
+    <!-- 嘴 -->
+    <path d="M54 68 Q60 76 66 68" stroke="#3E2723" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- 舌头 -->
+    <path d="M58 72 Q60 78 62 72" fill="#FF8A80"/>
+    <!-- 腮红 -->
+    <circle cx="44" cy="62" r="4.5" fill="#FFAB91" opacity="0.3"/>
+    <circle cx="76" cy="62" r="4.5" fill="#FFAB91" opacity="0.3"/>
+    <!-- 短手 -->
+    <path d="M38 90 Q28 95 30 100" stroke="#3E2723" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <path d="M82 90 Q92 95 90 100" stroke="#3E2723" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <!-- 短脚 -->
+    <line x1="50" y1="122" x2="48" y2="135" stroke="#3E2723" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="70" y1="122" x2="72" y2="135" stroke="#3E2723" stroke-width="3.5" stroke-linecap="round"/>
+    <!-- 尾巴 -->
+    <path d="M85 105 Q96 98 94 88" stroke="#3E2723" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  </g>
+
+  <!-- === 小白狗/马尔济斯（右） === -->
+  <g transform="translate(170, 15)">
+    <!-- 身体（毛茸茸波浪边缘）-->
+    <path d="M35 68 Q32 50 38 35 Q42 25 50 22 Q58 18 65 22 Q75 28 78 40 Q82 50 80 68 Q82 80 80 90 Q78 105 72 115 Q65 122 58 125 Q50 122 44 115 Q38 105 36 90 Q34 80 35 68Z" stroke="#3E2723" stroke-width="4" fill="white" stroke-linejoin="round"/>
+    <!-- 毛茸茸装饰（身体边缘小波浪）-->
+    <path d="M36 55 Q32 52 35 48" stroke="#3E2723" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M80 55 Q84 52 81 48" stroke="#3E2723" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M36 85 Q31 83 34 79" stroke="#3E2723" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <path d="M80 85 Q85 83 82 79" stroke="#3E2723" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+    <!-- 左立耳（圆润）-->
+    <path d="M44 32 Q40 10 50 18 Q53 22 51 32" stroke="#3E2723" stroke-width="3.5" fill="white" stroke-linejoin="round"/>
+    <!-- 右立耳 -->
+    <path d="M72 32 Q76 10 66 18 Q63 22 65 32" stroke="#3E2723" stroke-width="3.5" fill="white" stroke-linejoin="round"/>
+    <!-- 眼睛 -->
+    <circle cx="50" cy="50" r="3" fill="#3E2723"/>
+    <circle cx="66" cy="50" r="3" fill="#3E2723"/>
+    <!-- 鼻子 -->
+    <path d="M55 58 L58 62 L61 58Z" fill="#3E2723"/>
+    <!-- 嘴 -->
+    <path d="M52 62 Q58 70 64 62" stroke="#3E2723" stroke-width="2" fill="none" stroke-linecap="round"/>
+    <!-- 舌头 -->
+    <path id="dogTongue" d="M56 66 Q58 72 60 66" fill="#FF8A80" opacity="1"/>
+    <!-- 腮红 -->
+    <circle cx="42" cy="56" r="4.5" fill="#FFAB91" opacity="0.3"/>
+    <circle cx="74" cy="56" r="4.5" fill="#FFAB91" opacity="0.3"/>
+    <!-- 短手 -->
+    <path d="M38 80 Q28 85 30 90" stroke="#3E2723" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <path d="M78 80 Q88 85 86 90" stroke="#3E2723" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+    <!-- 短脚 -->
+    <line x1="48" y1="120" x2="46" y2="132" stroke="#3E2723" stroke-width="3.5" stroke-linecap="round"/>
+    <line x1="68" y1="120" x2="70" y2="132" stroke="#3E2723" stroke-width="3.5" stroke-linecap="round"/>
+    <!-- 尾巴 -->
+    <path id="dogTail" d="M80 100 Q92 94 90 84" stroke="#3E2723" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+  </g>
 </svg>
 
 <h1>命运の食堂</h1>
